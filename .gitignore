@@ -15,3 +15,5 @@
 # vendor/
 
 errors.log
+
+dist/
