@@ -1,10 +1,12 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
+	"net/http"
 	"os"
+	"time"
 
+	"github.com/bradford-hamilton/cipher-bin-cli/internal/api"
 	"github.com/spf13/cobra"
 )
 
@@ -17,45 +19,46 @@ var ReferenceName string
 // Password will be hydrated with it's value if a user runs a cmd with flag --password (or -p)
 var Password string
 
+// APIClient is the exported APIClient, it is set during init
+var APIClient *api.Client
+
 func init() {
-	rootCmd.Flags().StringVarP(&Email, "email", "e", "", "when provided, a read receipt will be sent to this email upon read/destruction")
-	rootCmd.Flags().StringVarP(&ReferenceName, "reference_name", "r", "", "requires: email flag. This reference name will be quoted in the read receipt email")
-	rootCmd.Flags().StringVarP(&Password, "password", "p", "", "provide an additional password to read the message")
+	client := http.Client{Timeout: 15 * time.Second}
+
+	// browserBaseURL := "https://cipherb.in"
+	// apiBaseURL := "https://api.cipherb.in"
+	browserBaseURL := "http://localhost:3000"
+	apiBaseURL := "http://localhost:4000"
+
+	api, err := api.NewClient(browserBaseURL, apiBaseURL, &client)
+	if err != nil {
+		fmt.Printf("Error creating API client. Err: %v", err)
+		os.Exit(1)
+		return
+	}
+
+	// Set the globally exported APIClient variable to the new client we created
+	APIClient = api
+
+	// Add the other commands to the base command
+	rootCmd.AddCommand(createCmd)
+
+	// Hydrate variables with any user provided flags
+	createCmd.Flags().StringVarP(&Email, "email", "e", "", "when provided, a read receipt will be sent to this email upon read/destruction")
+	createCmd.Flags().StringVarP(&ReferenceName, "reference_name", "r", "", "requires: email flag. This reference name will be quoted in the read receipt email")
+	createCmd.Flags().StringVarP(&Password, "password", "p", "", "provide an additional password to read the message")
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "cipherbin",
+	Use:   "cipherbin [...flags] [...command]",
 	Short: "Cipherbin is a simple CLI tool for generating encrypted messages",
 	Long:  `TODO: Long description`,
-	Args:  zeroArgs,
+	Args:  cobra.MinimumNArgs(1),
 	Run:   runRootCmd,
 }
 
 func runRootCmd(cmd *cobra.Command, args []string) {
-	fmt.Println(Email)
-	fmt.Println(ReferenceName)
-	fmt.Println(Password)
-
-	// Open a tmp file (or a user editable file at a known location like `~/.cipherbin`?
-	// Either read the file on close for tmp file scenario or if there is known location,
-	// always read from there when running create cmd
-
-	// Create a uuidv4
-
-	// Encrypt the message useing AES-256
-
-	// Create URL with format {host}?bin={uuidv4};{ecryption_key}
-
-	// Send ecrypted message to server in same shape as the front end does for hopeful
-	// plug and play
-}
-
-func zeroArgs(cmd *cobra.Command, args []string) error {
-	if len(args) > 0 {
-		return errors.New("Requires 0 arguments")
-	}
-
-	return nil
+	fmt.Println("Unknown command. Try `cipherbin help` for more information")
 }
 
 // Execute runs a user's command. On error, it will print the error and cause
