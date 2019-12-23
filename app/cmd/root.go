@@ -25,10 +25,8 @@ var APIClient *api.Client
 func init() {
 	client := http.Client{Timeout: 15 * time.Second}
 
-	// browserBaseURL := "https://cipherb.in"
-	// apiBaseURL := "https://api.cipherb.in"
-	browserBaseURL := "http://localhost:3000"
-	apiBaseURL := "http://localhost:4000"
+	browserBaseURL := "https://cipherb.in"
+	apiBaseURL := "https://api.cipherb.in"
 
 	api, err := api.NewClient(browserBaseURL, apiBaseURL, &client)
 	if err != nil {

@@ -1,5 +1,5 @@
 // Package aes256 is thanks to https://gist.github.com/brettscott/2ac58ab7cb1c66e2b4a32d6c1c3908a7
-// Will plaly nicely with the aes256 encryption created on the client (javascript) side
+// Will play nicely with the aes256 encryption created on the client (javascript) side
 package aes256
 
 import (
