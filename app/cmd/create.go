@@ -17,7 +17,7 @@ var createCmd = &cobra.Command{
 	Short: "Create a new encrypted message",
 	Long: `
 Create opens up either your editor of choice if you have $EDITOR set, or it
-will default to vim. Type/paste your message content into the editor, save,
+will default to vi. Type/paste your message content into the editor, save,
 and close. Your message will be encrypted and you will receive the one time
 use link.
 	`,

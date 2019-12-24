@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// DefaultEditor will always fall back to vim
-const DefaultEditor = "vim"
+// DefaultEditor will always fall back to vi
+const DefaultEditor = "vi"
 
 // PreferredEditorResolver is a function that returns an editor that the user
 // prefers to use, such as the configured `$EDITOR` environment variable.
@@ -26,7 +26,7 @@ func PreferredEditor() string {
 	return DefaultEditor
 }
 
-// More editor support can be added here, for now only support vs code (and default to vim)
+// More editor support can be added here, for now only support vs code (and default to vi)
 func resolveArguments(executable string, filename string) []string {
 	args := []string{filename}
 
