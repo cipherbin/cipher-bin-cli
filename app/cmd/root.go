@@ -48,11 +48,15 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "cipherbin [...flags] [...command]",
+	Use:   "cipherbin",
 	Short: "Cipherbin is a simple CLI tool for generating encrypted messages",
-	Long:  `TODO: Long description`,
-	Args:  cobra.MinimumNArgs(1),
-	Run:   runRootCmd,
+	Long: `
+cipherbin is a free and open source service for sending encrypted messages (https://cipherb.in).
+This CLI interacts with the api (https://api.cipherb.in) in order to create and read encrypted
+messages from the command line
+`,
+	Args: cobra.MinimumNArgs(1),
+	Run:  runRootCmd,
 }
 
 func runRootCmd(cmd *cobra.Command, args []string) {

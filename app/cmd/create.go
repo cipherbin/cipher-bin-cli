@@ -3,17 +3,21 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"time"
 
+	"github.com/atotto/clipboard"
 	"github.com/bradford-hamilton/cipher-bin-cli/pkg/aes256"
+	"github.com/bradford-hamilton/cipher-bin-cli/pkg/colors"
 	"github.com/bradford-hamilton/cipher-bin-cli/pkg/editor"
 	"github.com/bradford-hamilton/cipher-bin-cli/pkg/randstring"
 	"github.com/bradford-hamilton/cipher-bin-server/db"
+	"github.com/briandowns/spinner"
 	uuid "github.com/satori/go.uuid"
 	"github.com/spf13/cobra"
 )
 
 var createCmd = &cobra.Command{
-	Use:   "create [...flags]",
+	Use:   "create",
 	Short: "Create a new encrypted message",
 	Long: `
 Create opens up either your editor of choice if you have $EDITOR set, or it
@@ -32,6 +36,10 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+
+	s := spinner.New(spinner.CharSets[43], 100*time.Millisecond)
+	s.Color("blue")
+	s.Start()
 
 	// Create a v4 uuid for message identification and to eliminate
 	// almost any chance of stumbling upon the url
@@ -61,5 +69,19 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Warning! This message will self destruct after reading it.\n%s\n", oneTimeURL)
+	// Stop the spinner and create warning message
+	s.Stop()
+	w := fmt.Sprintf("\nWarning! This message will self destruct after reading it.")
+
+	// Copy the one time url to the user's clipboard. Using nice little package here
+	// that does the work around ensuring this works on OSX, Windows 7, Linux/Unix
+	if err := clipboard.WriteAll(oneTimeURL); err != nil {
+		colors.Println(w, "yellow")
+		colors.Println(oneTimeURL+"\n", "green")
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	colors.Println(w, "yellow")
+	colors.Println(oneTimeURL+"\n", "green")
 }
