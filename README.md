@@ -1,6 +1,6 @@
 <p align="center">
   <img src="cipher_bin_logo_black.png" alt="cipher bin logo" />
-  <h1 align="center">Cipher Bin CLI</h1>
+  <h1 align="center">Cipherbin CLI</h1>
 </p>
 
 Source code for the cli, if you are looking for the client side React app [go here](https://github.com/bradford-hamilton/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/bradford-hamilton/cipher-bin-server)
