@@ -19,15 +19,15 @@ const (
 )
 
 // Println prints the text in the designated color. It's second parameter
-// is of type color which unexported... This makes it so that the caller has
-// to use one of the exported constant color variables (which  are of type
-// color). Keeping the color type unexported makes it so that a caller
-// can't create a new Color (if it were exported) and assign it to an
-// arbitrary int. The default is to just fmt.Println() so it's not exactly
-// defensive coding, however it is attempting to guide the caller into using
-// the supported colors. Haven't figured out if this is bad practice due to
-// the second param asking for an unexported type, or if this is an elegant
-// enum type solution?
+// is of type color which is unexported... This makes it so that the caller
+// has to use one of the exported constant variables (which are of typecolor).
+// Keeping the color type unexported makes it so that a caller can't create
+// a new Color (if it were exported) and assign it to an arbitrary int. The
+// default is to just fmt.Println() so it's not exactly defensive coding,
+// however it is attempting to guide the caller into using the supported
+// colors. Haven't figured out if this is bad practice due to the second
+// param asking for an unexported type, or if this is an elegant enum type
+// solution?
 func Println(text string, c color) {
 	switch c {
 	case Black:
