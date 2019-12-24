@@ -1,7 +1,19 @@
-<p align="center">
+<div align="center">
   <img src="cipher_bin_logo_black.png" alt="cipher bin logo" />
   <h1 align="center">Cipherbin CLI</h1>
-</p>
+  <a href="https://goreportcard.com/report/github.com/bradford-hamilton/cipher-bin-cli">
+    <img src="https://goreportcard.com/badge/github.com/bradford-hamilton/cipher-bin-cli" alt="cipher bin logo" align="center" />
+  </a>
+  <a href="https://godoc.org/github.com/bradford-hamilton/cipher-bin-cli">
+    <img src="https://godoc.org/github.com/bradford-hamilton/cipher-bin-cli?status.svg" alt="cipher bin logo" align="center" />
+  </a>
+  <a href="https://golang.org/dl">
+    <img src="https://img.shields.io/badge/go-1.13.4-9cf.svg" alt="cipher bin logo" align="center" />
+  </a>
+  <a href="https://github.com/bradford-hamilton/cipher-bin-cli/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" align="center">
+  </a>
+</div>
 
 Source code for the cli, if you are looking for the client side React app [go here](https://github.com/bradford-hamilton/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/bradford-hamilton/cipher-bin-server)
 

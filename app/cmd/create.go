@@ -50,6 +50,10 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 
 	// Encrypt the message using AES-256
 	encryptedMsg, err := aes256.Encrypt(msgBytes, key)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
 	// Create one time use URL with format {host}?bin={uuidv4};{ecryption_key}
 	oneTimeURL := fmt.Sprintf("%s/msg?bin=%s;%s", APIClient.BrowserBaseURL, uuidv4, key)
