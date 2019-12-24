@@ -80,12 +80,12 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	// Copy the one time url to the user's clipboard. Using nice little package here
 	// that does the work around ensuring this works on OSX, Windows 7, Linux/Unix
 	if err := clipboard.WriteAll(oneTimeURL); err != nil {
-		colors.Println(w, "yellow")
-		colors.Println(oneTimeURL+"\n", "green")
+		colors.Println(w, colors.Yellow)
+		colors.Println(oneTimeURL+"\n", colors.Green)
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	colors.Println(w, "yellow")
-	colors.Println(oneTimeURL+"\n", "green")
+	colors.Println(w, colors.Yellow)
+	colors.Println(oneTimeURL+"\n", colors.Green)
 }
