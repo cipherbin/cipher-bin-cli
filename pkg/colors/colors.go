@@ -6,7 +6,7 @@ import "fmt"
 type color int
 
 // Supported Colors use the iota pattern to assign color (int) values to
-// the availble color variables
+// the available color variables
 const (
 	Black color = iota
 	Red
