@@ -3,15 +3,17 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
+	"github.com/bradford-hamilton/cipher-bin-server/app"
 	"github.com/bradford-hamilton/cipher-bin-server/db"
 )
 
 // Client makes network API calls to cipherb.in
 type Client struct {
-	client         CipherBinAPIClient
+	CipherBinAPIClient
 	APIBaseURL     string
 	BrowserBaseURL string
 }
@@ -24,9 +26,9 @@ type CipherBinAPIClient interface {
 // NewClient is a constructor for the ApiClient
 func NewClient(browserBaseURL, apiBaseURL string, client CipherBinAPIClient) (*Client, error) {
 	apiClient := &Client{
-		client:         client,
-		BrowserBaseURL: browserBaseURL,
-		APIBaseURL:     apiBaseURL,
+		CipherBinAPIClient: client,
+		BrowserBaseURL:     browserBaseURL,
+		APIBaseURL:         apiBaseURL,
 	}
 
 	return apiClient, nil
@@ -52,7 +54,7 @@ func (c *Client) PostMessage(msg *db.Message) error {
 
 	req.Header.Set("Content-Type", "application/json")
 
-	res, err := c.client.Do(req)
+	res, err := c.Do(req)
 	if err != nil {
 		return err
 	}
@@ -63,4 +65,34 @@ func (c *Client) PostMessage(msg *db.Message) error {
 	}
 
 	return nil
+}
+
+// GetMessage
+func (c *Client) GetMessage(url string) (*app.MessageResponse, error) {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := c.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusNotFound {
+		return nil, errors.New("Sorry, this message has either already been viewed and destroyed or it never existed at all")
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("Error: response status: %d", res.StatusCode)
+	}
+
+	var r app.MessageResponse
+	err = json.NewDecoder(res.Body).Decode(&r)
+	if err != nil {
+		return nil, err
+	}
+
+	return &r, nil
 }

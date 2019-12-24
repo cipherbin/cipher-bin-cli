@@ -10,14 +10,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Email will be hydrated with it's value if a user runs a cmd with flag --email (or -e)
+// Email will be hydrated with it's value if a user runs the create cmd with the
+// flag --email (or -e)
 var Email string
 
-// ReferenceName will be hydrated with it's value if a user runs a cmd with flag --reference_name (or -r)
+// ReferenceName will be hydrated with it's value if a user runs the create cmd
+// with the flag --reference_name (or -r)
 var ReferenceName string
 
-// Password will be hydrated with it's value if a user runs a cmd with flag --password (or -p)
+// Password will be hydrated with it's value if a user runs the create cmd with
+// flag --password (or -p)
 var Password string
+
+// OpenInBrowser will be hydrated with it's value if a user runs the read cmd
+// with the flag --open (or -o)
+var OpenInBrowser bool
 
 // APIClient is the exported APIClient, it is set during init
 var APIClient *api.Client
@@ -27,6 +34,11 @@ func init() {
 
 	browserBaseURL := "https://cipherb.in"
 	apiBaseURL := "https://api.cipherb.in"
+
+	if os.Getenv("CIPHER_BIN_ENV") == "development" {
+		browserBaseURL = "http://localhost:3000"
+		apiBaseURL = "http://localhost:4000"
+	}
 
 	api, err := api.NewClient(browserBaseURL, apiBaseURL, &client)
 	if err != nil {
@@ -38,13 +50,17 @@ func init() {
 	// Set the globally exported APIClient variable to the new client we created
 	APIClient = api
 
-	// Add the other commands to the base command
+	// Add all cipherbin commands to the base command
 	rootCmd.AddCommand(createCmd)
+	rootCmd.AddCommand(readCmd)
 
-	// Hydrate variables with any user provided flags
+	// Hydrate createCmd flag variables with the (if any) user input
 	createCmd.Flags().StringVarP(&Email, "email", "e", "", "when provided, a read receipt will be sent to this email upon read/destruction")
 	createCmd.Flags().StringVarP(&ReferenceName, "reference_name", "r", "", "requires: email flag. This reference name will be quoted in the read receipt email")
 	createCmd.Flags().StringVarP(&Password, "password", "p", "", "provide an additional password to read the message")
+
+	// Hydrate readCmd flag variables with the (if any) user input
+	readCmd.Flags().BoolVarP(&OpenInBrowser, "open", "o", false, "open and view the message in the web app in your browser")
 }
 
 var rootCmd = &cobra.Command{

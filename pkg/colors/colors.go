@@ -5,8 +5,8 @@ import "fmt"
 // color is a type alias for int
 type color int
 
-// Supported Colors use the iota pattern to assign color (int) values to
-// the available color variables
+// Supported Colors use the iota pattern to assign unexported color (int)
+// values to the available/exported color variables
 const (
 	Black color = iota
 	Red
