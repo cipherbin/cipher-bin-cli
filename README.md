@@ -1,4 +1,8 @@
-# Cipher Bin CLI
+<p align="center">
+  <img src="cipher_bin_logo_black.png" alt="cipher bin logo" />
+  <h1 align="center">Cipher Bin CLI</h1>
+</p>
+
 Source code for the cli, if you are looking for the client side React app [go here](https://github.com/bradford-hamilton/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/bradford-hamilton/cipher-bin-server)
 
 ## Installation
@@ -12,12 +16,12 @@ brew install bradford-hamilton/cipherbin/cipherbin
 
 Updating:
 ```
-brew upgrade bradford-hamilton/cipherbin/cipherbin
+brew upgrade cipherbin
 ```
 
 Uninstalling:
 ```
-brew uninstall bradford-hamilton/cipherbin/cipherbin
+brew uninstall cipherbin
 ```
 
 _**Option B:**_
