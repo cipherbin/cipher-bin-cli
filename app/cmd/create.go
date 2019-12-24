@@ -33,7 +33,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	// Capture user input (the message) within their preferred editor
 	msgBytes, err := editor.CaptureInput(editor.PreferredEditor)
 	if err != nil {
-		fmt.Println(err)
+		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)
 	}
 
@@ -51,7 +51,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	// Encrypt the message using AES-256
 	encryptedMsg, err := aes256.Encrypt(msgBytes, key)
 	if err != nil {
-		fmt.Println(err)
+		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)
 	}
 
@@ -69,7 +69,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	// Post message to the cipherbin api
 	err = APIClient.PostMessage(&msg)
 	if err != nil {
-		fmt.Println(err)
+		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)
 	}
 
@@ -82,7 +82,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	if err := clipboard.WriteAll(oneTimeURL); err != nil {
 		colors.Println(w, colors.Yellow)
 		colors.Println(oneTimeURL+"\n", colors.Green)
-		fmt.Println(err)
+		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)
 	}
 

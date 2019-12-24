@@ -59,7 +59,7 @@ ___
 
 The `create` command will open either your editor of choice (if you have $EDITOR env var set), or default to vi. As of now there is only specific support for VS Code. Other editors _may_ work, but it's not guaranteed. Within the editor, type or paste your secret content. When you save and quit your message will be encrypted and posted to the cipherbin api. The one time use URL will be automatically copied to your clipboard and printed in your teminal. It works similarly to a `git commit --amend` work-flow. The URL can now either be visited in a browser or the message can be read with the `read` command.
 ```
-cipherbin create
+cipherbin create [...flags]
 ```
 
 **Flags:**
@@ -82,9 +82,15 @@ Reference name for the message (Ex. "prod env vars"). You must be using the emai
 ___
 **Reading an encrypted message:**
 
-Instead of visiting the URL in your browser you can use the `read` command. It takes one argument, which is the URL.
+Instead of visiting the URL in your browser you can use the `read` command. It takes one argument, which is the URL. Ensure you put the URL arg inside single or double quotes.
 ```
-cipherbin read https://cipherb.in/msg?bin=some_uuid;some_key
+cipherbin read "https://cipherb.in/msg?bin=some_uuid;some_key" [...flags]
+```
+**Flags:**
+
+Open the message in the web app on your browser
+```
+--open, -o
 ```
 ___
 # Development
