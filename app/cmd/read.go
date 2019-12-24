@@ -36,7 +36,7 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 
 	// If the --open or -o flag is passed, open the cipher bin web app link in browser
 	if OpenInBrowser {
-		_, err := exec.Command("bash", "-c", fmt.Sprintf("open %s", url)).Output()
+		_, err := exec.Command("bash", "-c", fmt.Sprintf("open %s", fmt.Sprintf("'%s'", url))).Output()
 		if err != nil {
 			colors.Println("Sorry, there was an error opening the message in your browser", colors.Red)
 			os.Exit(1)
