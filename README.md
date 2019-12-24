@@ -43,6 +43,24 @@ The `create` command will open either your editor of choice (if you have $EDITOR
 ```
 cipherbin create
 ```
+
+**Flags:**
+
+Email to send the notification to when your message is read and destroyed
+```
+--email, -e
+```
+
+Reference name for the message (Ex. "prod env vars"). You must be using the email flag for this to have any effect.
+```
+--reference_name, -r
+```
+
+<!-- Add a password to be able to read the message
+```
+--password, -p
+``` -->
+
 ___
 **Reading an encrypted message:**
 
