@@ -17,7 +17,9 @@
 <br />
 <br />
 
-Source code for the CLI, if you are looking for the client side React app [go here](https://github.com/bradford-hamilton/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/bradford-hamilton/cipher-bin-server)
+Source code for the CLI, if you are looking for the client side React app [go here](https://github.com/bradford-hamilton/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/bradford-hamilton/cipher-bin-server).
+
+You can find instructions on using the CLI at the bottom of the this `README.md` or check out [the docs](https://cipherb.in/cli).
 
 ## Installation
 _**Option A:**_
@@ -54,7 +56,6 @@ This will place the binary in your `go/bin` and is ready to use, however the bin
 The alternative solution here is to run `go build -o $GOPATH/bin/cipherbin`. This will essentially act like a `go install`, but you can name the binary what it's intended to be named.
 
 ## Using the CLI
-___
 **Creating a new message:**
 
 The `create` command will open either your editor of choice (if you have $EDITOR env var set), or default to vi. As of now there is only specific support for VS Code. Other editors _may_ work, but it's not guaranteed. Within the editor, type or paste your secret content. When you save and quit your message will be encrypted and posted to the cipherbin api. The one time use URL will be automatically copied to your clipboard and printed in your teminal. It works similarly to a `git commit --amend` work-flow. The URL can now either be visited in a browser or the message can be read with the `read` command.
@@ -99,7 +100,7 @@ Check your currently installed version.
 ```
 cipherbin version
 ```
-___
+
 # Development
 ## Running the application
 Build
