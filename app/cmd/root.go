@@ -10,6 +10,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Version constant that represents the current build version
+const Version = "v.0.4.1"
+
 // Email will be hydrated with it's value if a user runs the create cmd with the
 // flag --email (or -e)
 var Email string
@@ -53,6 +56,7 @@ func init() {
 	// Add all cipherbin commands to the base command
 	rootCmd.AddCommand(createCmd)
 	rootCmd.AddCommand(readCmd)
+	rootCmd.AddCommand(versionCmd)
 
 	// Hydrate createCmd flag variables with the (if any) user input
 	createCmd.Flags().StringVarP(&Email, "email", "e", "", "when provided, a read receipt will be sent to this email upon read/destruction")

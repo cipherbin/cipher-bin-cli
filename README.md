@@ -93,6 +93,13 @@ Open the message in the web app on your browser
 --open, -o
 ```
 ___
+**Version:**
+
+Check your currently installed version.
+```
+cipherbin version
+```
+___
 # Development
 ## Running the application
 Build
