@@ -59,9 +59,27 @@ func init() {
 	rootCmd.AddCommand(versionCmd)
 
 	// Hydrate createCmd flag variables with the (if any) user input
-	createCmd.Flags().StringVarP(&Email, "email", "e", "", "when provided, a read receipt will be sent to this email upon read/destruction")
-	createCmd.Flags().StringVarP(&ReferenceName, "reference_name", "r", "", "requires: email flag. This reference name will be quoted in the read receipt email")
-	createCmd.Flags().StringVarP(&Password, "password", "p", "", "provide an additional password to read the message")
+	createCmd.Flags().StringVarP(
+		&Email,
+		"email",
+		"e",
+		"",
+		"when provided, a read receipt will be sent to this email upon read/destruction",
+	)
+	createCmd.Flags().StringVarP(
+		&ReferenceName,
+		"reference_name",
+		"r",
+		"",
+		"requires: email flag. This reference name will be quoted in the read receipt email",
+	)
+	createCmd.Flags().StringVarP(
+		&Password,
+		"password",
+		"p",
+		"",
+		"provide an additional password to read the message",
+	)
 
 	// Hydrate readCmd flag variables with the (if any) user input
 	readCmd.Flags().BoolVarP(&OpenInBrowser, "open", "o", false, "open and view the message in the web app in your browser")
