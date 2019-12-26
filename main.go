@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/bradford-hamilton/cipher-bin-cli/app/cmd"
+	"github.com/cipherbin/cipher-bin-cli/app/cmd"
 )
 
 func main() {

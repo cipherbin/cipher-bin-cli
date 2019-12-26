@@ -6,8 +6,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/bradford-hamilton/cipher-bin-cli/pkg/aes256"
-	"github.com/bradford-hamilton/cipher-bin-cli/pkg/colors"
+	"github.com/cipherbin/cipher-bin-cli/pkg/aes256"
+	"github.com/cipherbin/cipher-bin-cli/pkg/colors"
 	"github.com/spf13/cobra"
 )
 

@@ -6,12 +6,12 @@ import (
 	"time"
 
 	"github.com/atotto/clipboard"
-	"github.com/bradford-hamilton/cipher-bin-cli/pkg/aes256"
-	"github.com/bradford-hamilton/cipher-bin-cli/pkg/colors"
-	"github.com/bradford-hamilton/cipher-bin-cli/pkg/editor"
-	"github.com/bradford-hamilton/cipher-bin-cli/pkg/randstring"
-	"github.com/bradford-hamilton/cipher-bin-server/db"
 	"github.com/briandowns/spinner"
+	"github.com/cipherbin/cipher-bin-cli/pkg/aes256"
+	"github.com/cipherbin/cipher-bin-cli/pkg/colors"
+	"github.com/cipherbin/cipher-bin-cli/pkg/editor"
+	"github.com/cipherbin/cipher-bin-cli/pkg/randstring"
+	"github.com/cipherbin/cipher-bin-server/db"
 	uuid "github.com/satori/go.uuid"
 	"github.com/spf13/cobra"
 )

@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/bradford-hamilton/cipher-bin-cli/internal/api"
+	"github.com/cipherbin/cipher-bin-cli/internal/api"
 	"github.com/spf13/cobra"
 )
 

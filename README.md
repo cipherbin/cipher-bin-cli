@@ -1,23 +1,23 @@
 <div align="center">
   <img src="cipher_bin_logo_black.png" alt="cipher bin logo" />
   <h1 align="center">Cipherbin CLI</h1>
-  <a href="https://goreportcard.com/report/github.com/bradford-hamilton/cipher-bin-cli">
-    <img src="https://goreportcard.com/badge/github.com/bradford-hamilton/cipher-bin-cli" alt="cipher bin logo" align="center" />
+  <a href="https://goreportcard.com/report/github.com/cipherbin/cipher-bin-cli">
+    <img src="https://goreportcard.com/badge/github.com/cipherbin/cipher-bin-cli" alt="cipher bin logo" align="center" />
   </a>
-  <a href="https://godoc.org/github.com/bradford-hamilton/cipher-bin-cli">
-    <img src="https://godoc.org/github.com/bradford-hamilton/cipher-bin-cli?status.svg" alt="cipher bin logo" align="center" />
+  <a href="https://godoc.org/github.com/cipherbin/cipher-bin-cli">
+    <img src="https://godoc.org/github.com/cipherbin/cipher-bin-cli?status.svg" alt="cipher bin logo" align="center" />
   </a>
   <a href="https://golang.org/dl">
     <img src="https://img.shields.io/badge/go-1.13.4-9cf.svg" alt="cipher bin logo" align="center" />
   </a>
-  <a href="https://github.com/bradford-hamilton/cipher-bin-cli/blob/master/LICENSE">
+  <a href="https://github.com/cipherbin/cipher-bin-cli/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" align="center">
   </a>
 </div>
 <br />
 <br />
 
-Source code for the CLI, if you are looking for the client side React app [go here](https://github.com/bradford-hamilton/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/bradford-hamilton/cipher-bin-server).
+Source code for the CLI, if you are looking for the client side React app [go here](https://github.com/cipherbin/cipher-bin-client). If you are looking for the Golang server [go here](https://github.com/cipherbin/cipher-bin-server).
 
 You can find instructions on using the CLI at the bottom of the this `README.md` or check out [the docs](https://cipherb.in/cli).
 
@@ -26,8 +26,8 @@ _**Option A:**_
 
 Homebrew:
 ```
-brew tap bradford-hamilton/cipherbin
-brew install bradford-hamilton/cipherbin/cipherbin
+brew tap cipherbin/cipherbin
+brew install cipherbin/cipherbin/cipherbin
 ```
 
 Updating:
@@ -42,13 +42,13 @@ brew uninstall cipherbin
 
 _**Option B:**_
 
-If you mosey on over to [releases](https://github.com/bradford-hamilton/cipher-bin-cli/releases), you'll find binaries for darwin, linux, and amd64. You can download directly from there.
+If you mosey on over to [releases](https://github.com/cipherbin/cipher-bin-cli/releases), you'll find binaries for darwin, linux, and amd64. You can download directly from there.
 
 _**Option C:**_
 
 If you have Go installed on your machine, use `go install`:
 ```
-go install github.com/bradford-hamilton/cipher-bin-cli
+go install github.com/cipherbin/cipher-bin-cli
 ```
 
 This will place the binary in your `go/bin` and is ready to use, however the binary will be named `cipher-bin-cli` with this option.
