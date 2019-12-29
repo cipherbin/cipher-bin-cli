@@ -11,7 +11,7 @@ import (
 )
 
 // Version constant that represents the current build version
-const Version = "v.0.4.2"
+const Version = "v.0.5.1"
 
 // Email will be hydrated with it's value if a user runs the create cmd with the
 // flag --email (or -e)
