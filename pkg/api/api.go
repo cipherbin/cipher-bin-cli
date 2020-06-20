@@ -23,35 +23,28 @@ type CipherBinAPIClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
-// NewClient is a constructor for the ApiClient
+// NewClient is a constructor for the ApiClient and satifies the CipherBinAPIClient interface
 func NewClient(browserBaseURL, apiBaseURL string, client CipherBinAPIClient) (*Client, error) {
-	apiClient := &Client{
+	return &Client{
 		CipherBinAPIClient: client,
 		BrowserBaseURL:     browserBaseURL,
 		APIBaseURL:         apiBaseURL,
-	}
-
-	return apiClient, nil
+	}, nil
 }
 
-// PostMessage takes a msg of type *db.Message (this is what the server
-// uses and will expect) and posts it to the cipherbin api
+// PostMessage takes a msg of type *db.Message (this is what the server uses and will expect)
+// and posts it to the live cipherbin api
 func (c *Client) PostMessage(msg *db.Message) error {
 	payloadBytes, err := json.Marshal(msg)
 	if err != nil {
 		return err
 	}
 
-	req, err := http.NewRequest(
-		"POST",
-		fmt.Sprintf("%s%s", c.APIBaseURL, "/msg"),
-		bytes.NewBuffer(payloadBytes),
-	)
+	req, err := http.NewRequest("POST", c.APIBaseURL+"/msg", bytes.NewBuffer(payloadBytes))
 	if err != nil {
 		return err
 	}
 	defer req.Body.Close()
-
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := c.Do(req)
@@ -63,11 +56,10 @@ func (c *Client) PostMessage(msg *db.Message) error {
 	if res.StatusCode != http.StatusOK {
 		return fmt.Errorf("Error: response status: %d", res.StatusCode)
 	}
-
 	return nil
 }
 
-// GetMessage
+// GetMessage simply takes a cipherb.in public URL string and returns the appropriate encrypted message
 func (c *Client) GetMessage(url string) (*app.MessageResponse, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -83,14 +75,12 @@ func (c *Client) GetMessage(url string) (*app.MessageResponse, error) {
 	if res.StatusCode == http.StatusNotFound {
 		return nil, errors.New("Sorry, this message has either already been viewed and destroyed or it never existed at all")
 	}
-
 	if res.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("Error: response status: %d", res.StatusCode)
 	}
 
 	var r app.MessageResponse
-	err = json.NewDecoder(res.Body).Decode(&r)
-	if err != nil {
+	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		return nil, err
 	}
 

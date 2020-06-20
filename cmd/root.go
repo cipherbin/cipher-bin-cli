@@ -6,12 +6,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/cipherbin/cipher-bin-cli/internal/api"
+	"github.com/cipherbin/cipher-bin-cli/pkg/api"
 	"github.com/spf13/cobra"
 )
 
 // Version constant that represents the current build version
-const Version = "v.0.5.1"
+const Version = "v.0.5.2"
 
 // Email will be hydrated with it's value if a user runs the create cmd with the
 // flag --email (or -e)
@@ -34,7 +34,6 @@ var APIClient *api.Client
 
 func init() {
 	client := http.Client{Timeout: 15 * time.Second}
-
 	browserBaseURL := "https://cipherb.in"
 	apiBaseURL := "https://api.cipherb.in"
 
