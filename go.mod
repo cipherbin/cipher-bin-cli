@@ -25,6 +25,8 @@ require (
 	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/spf13/pflag v1.0.3 // indirect
-	golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223 // indirect
+	golang.org/x/net v0.20.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
 )
