@@ -8,7 +8,7 @@
     <img src="https://godoc.org/github.com/cipherbin/cipher-bin-cli?status.svg" alt="cipher bin logo" align="center" />
   </a>
   <a href="https://golang.org/dl">
-    <img src="https://img.shields.io/badge/go-1.13.4-9cf.svg" alt="cipher bin logo" align="center" />
+    <img src="https://img.shields.io/badge/go-1.21.6-9cf.svg" alt="cipher bin logo" align="center" />
   </a>
   <a href="https://github.com/cipherbin/cipher-bin-cli/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" align="center">

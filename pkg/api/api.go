@@ -23,7 +23,7 @@ type CipherBinAPIClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
-// NewClient is a constructor for the ApiClient and satifies the CipherBinAPIClient interface
+// NewClient is a constructor for the ApiClient and satisfies the CipherBinAPIClient interface
 func NewClient(browserBaseURL, apiBaseURL string, client CipherBinAPIClient) (*Client, error) {
 	return &Client{
 		CipherBinAPIClient: client,
