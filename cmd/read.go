@@ -45,26 +45,24 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 	}
 
 	// If we've gotten here, the open in browser flag was not provided, so we
-	// replace the browser url with the api url to fetch the message here
+	// replace the browser url with the api url to fetch the message.
 	url = strings.Replace(url, APIClient.BrowserBaseURL, APIClient.APIBaseURL, -1)
+	urlParts := strings.Split(url, ";")
+	if len(urlParts) != 2 {
+		colors.Println("Sorry, that seems to be an invalid cipherbin link", colors.Red)
+	}
+	apiURL := urlParts[0] // uuid only
 
 	// Get the encrypted message with the APIClient
-	encryptedMsg, err := APIClient.GetMessage(url)
+	encryptedMsg, err := APIClient.GetMessage(apiURL)
 	if err != nil {
 		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)
 		return
 	}
 
-	var key string
-
-	// Ensure we have what looks like an AES key and set the key var if so
-	urlParts := strings.Split(url, ";")
-	if len(urlParts) == 2 {
-		key = urlParts[1]
-	}
-
-	// Length of urlParts != 2. In other words, if it's an invalid link.
+	// Set key to whatever the user has provided for the AES key.
+	key := urlParts[1]
 	if key == "" {
 		colors.Println("Sorry, that seems to be an invalid cipherbin link", colors.Red)
 		os.Exit(1)
@@ -79,10 +77,11 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 	}
 
 	// Print the decrypted message to the terminal
-	fmt.Println(plainTextMsg)
+	fmt.Println()
+	colors.Println(plainTextMsg, colors.Blue)
 }
 
-// validURL takes a string url and checks whether it's a valid cipherb.in link
+// validURL takes a string url and checks whether it looks like a valid cipherb.in link
 func validURL(url string) bool {
 	return strings.HasPrefix(url, fmt.Sprintf("%s/msg?bin=", APIClient.BrowserBaseURL))
 }
