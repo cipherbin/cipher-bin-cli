@@ -12,7 +12,7 @@ import (
 
 const (
 	// Version constant that represents the current build version
-	Version = "v.0.5.3"
+	Version = "v.0.6.0"
 
 	// CLI usage description strings
 	usageEmail         = "when provided, a read receipt will be sent to this email upon read/destruction"
