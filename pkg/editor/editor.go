@@ -3,7 +3,6 @@
 package editor
 
 import (
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
@@ -58,14 +57,12 @@ func OpenFile(filename string, resolveEditor PreferredEditorResolver) error {
 // of the temporary file behind the scenes.
 func CaptureInput(resolveEditor PreferredEditorResolver) ([]byte, error) {
 	// Create a tmp file that we will use to capture user input
-	file, err := ioutil.TempFile(os.TempDir(), "*")
+	file, err := os.CreateTemp(os.TempDir(), "*")
 	if err != nil {
 		return []byte{}, err
 	}
 
 	filename := file.Name()
-
-	// Defer removal of the tmp file
 	defer os.Remove(filename)
 
 	// Attempt to close the file and if there is an error, return it
@@ -79,7 +76,7 @@ func CaptureInput(resolveEditor PreferredEditorResolver) ([]byte, error) {
 	}
 
 	// Attempt to Readfile to bytes and if there is an error, return it
-	bytes, err := ioutil.ReadFile(filename)
+	bytes, err := os.ReadFile(filename)
 	if err != nil {
 		return []byte{}, err
 	}

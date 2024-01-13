@@ -10,27 +10,37 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Version constant that represents the current build version
-const Version = "v.0.5.2"
+const (
+	// Version constant that represents the current build version
+	Version = "v.0.5.3"
 
-// Email will be hydrated with it's value if a user runs the create cmd with the
-// flag --email (or -e)
-var Email string
+	// CLI usage description strings
+	usageEmail         = "when provided, a read receipt will be sent to this email upon read/destruction"
+	usageRefName       = "requires: email flag. This reference name will be quoted in the read receipt email"
+	usagePassword      = "provide an additional password to read the message"
+	usageOpenInBrowser = "open and view the message in the web app in your browser"
+)
 
-// ReferenceName will be hydrated with it's value if a user runs the create cmd
-// with the flag --reference_name (or -r)
-var ReferenceName string
+var (
+	// Email will be hydrated with it's value if a user runs the create cmd with the
+	// flag --email (or -e)
+	Email string
 
-// Password will be hydrated with it's value if a user runs the create cmd with
-// flag --password (or -p)
-var Password string
+	// ReferenceName will be hydrated with it's value if a user runs the create cmd
+	// with the flag --reference_name (or -r)
+	ReferenceName string
 
-// OpenInBrowser will be hydrated with it's value if a user runs the read cmd
-// with the flag --open (or -o)
-var OpenInBrowser bool
+	// Password will be hydrated with it's value if a user runs the create cmd with
+	// flag --password (or -p)
+	Password string
 
-// APIClient is the exported APIClient, it is set during init
-var APIClient *api.Client
+	// OpenInBrowser will be hydrated with it's value if a user runs the read cmd
+	// with the flag --open (or -o)
+	OpenInBrowser bool
+
+	// APIClient is the exported APIClient, it is set during init
+	APIClient *api.Client
+)
 
 func init() {
 	client := http.Client{Timeout: 15 * time.Second}
@@ -57,31 +67,12 @@ func init() {
 	rootCmd.AddCommand(readCmd)
 	rootCmd.AddCommand(versionCmd)
 
-	// Hydrate createCmd flag variables with the (if any) user input
-	createCmd.Flags().StringVarP(
-		&Email,
-		"email",
-		"e",
-		"",
-		"when provided, a read receipt will be sent to this email upon read/destruction",
-	)
-	createCmd.Flags().StringVarP(
-		&ReferenceName,
-		"reference_name",
-		"r",
-		"",
-		"requires: email flag. This reference name will be quoted in the read receipt email",
-	)
-	createCmd.Flags().StringVarP(
-		&Password,
-		"password",
-		"p",
-		"",
-		"provide an additional password to read the message",
-	)
+	// Flags
+	createCmd.Flags().StringVarP(&Email, "email", "e", "", usageEmail)
+	createCmd.Flags().StringVarP(&ReferenceName, "reference_name", "r", "", usageRefName)
+	createCmd.Flags().StringVarP(&Password, "password", "p", "", usagePassword)
 
-	// Hydrate readCmd flag variables with the (if any) user input
-	readCmd.Flags().BoolVarP(&OpenInBrowser, "open", "o", false, "open and view the message in the web app in your browser")
+	readCmd.Flags().BoolVarP(&OpenInBrowser, "open", "o", false, usageOpenInBrowser)
 }
 
 var rootCmd = &cobra.Command{

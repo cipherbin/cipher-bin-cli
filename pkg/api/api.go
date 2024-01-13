@@ -40,7 +40,7 @@ func (c *Client) PostMessage(msg *db.Message) error {
 		return err
 	}
 
-	req, err := http.NewRequest("POST", c.APIBaseURL+"/msg", bytes.NewBuffer(payloadBytes))
+	req, err := http.NewRequest(http.MethodPost, c.APIBaseURL+"/msg", bytes.NewBuffer(payloadBytes))
 	if err != nil {
 		return err
 	}
@@ -54,14 +54,14 @@ func (c *Client) PostMessage(msg *db.Message) error {
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		return fmt.Errorf("Error: response status: %d", res.StatusCode)
+		return fmt.Errorf("error: response status: %d", res.StatusCode)
 	}
 	return nil
 }
 
 // GetMessage simply takes a cipherb.in public URL string and returns the appropriate encrypted message
 func (c *Client) GetMessage(url string) (*app.MessageResponse, error) {
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -73,10 +73,10 @@ func (c *Client) GetMessage(url string) (*app.MessageResponse, error) {
 	defer res.Body.Close()
 
 	if res.StatusCode == http.StatusNotFound {
-		return nil, errors.New("Sorry, this message has either already been viewed and destroyed or it never existed at all")
+		return nil, errors.New("sorry, this message has either already been viewed and destroyed or it never existed at all")
 	}
 	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Error: response status: %d", res.StatusCode)
+		return nil, fmt.Errorf("error: response status: %d", res.StatusCode)
 	}
 
 	var r app.MessageResponse

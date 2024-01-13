@@ -75,7 +75,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 
 	// Stop the spinner and create warning message
 	s.Stop()
-	w := fmt.Sprintf("\nWarning! This message will self destruct after reading it.")
+	w := "\nWarning! This message will self destruct after reading it."
 
 	// Copy the one time url to the user's clipboard. Using nice little package here
 	// that does the work around ensuring this works on OSX, Windows 7, Linux/Unix
