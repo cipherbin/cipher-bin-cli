@@ -5,13 +5,15 @@ builds:
 - binary: cipherbin
   env:
   - CGO_ENABLED=0
-archives:
-- replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
-    386: i386
-    amd64: x86_64
+  goos:
+    - darwin
+    - linux
+    - windows
+  goarch:
+    - 386
+    - amd64
+    - arm
+    - arm64
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -25,16 +27,18 @@ changelog:
 brews:
   -
     name: cipherbin
-    github:
-      owner: cipherbin
-      name: homebrew-cipherbin
+    url_template: "https://github.com/cipherbin/cipher-bin-cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: goreleaserbot
-      email: goreleaser@carlosbecker.com
+      email: bot@goreleaser.com
     folder: Formula
     description: "CLI tool for communicating with cipherbin to interact with messages"
     dependencies:
       - git
       - zsh
+    repository:
+      owner: cipherbin
+      name: homebrew-cipherbin
+      token: "{{ .Env.GITHUB_TOKEN }}"
     install: |
       bin.install "cipherbin"
