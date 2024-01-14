@@ -22,24 +22,14 @@ const (
 )
 
 var (
-	// Email will be hydrated with it's value if a user runs the create cmd with the
-	// flag --email (or -e)
-	Email string
-
-	// ReferenceName will be hydrated with it's value if a user runs the create cmd
-	// with the flag --reference_name (or -r)
-	ReferenceName string
-
-	// Password will be hydrated with it's value if a user runs the create cmd with
-	// flag --password (or -p)
-	Password string
-
-	// OpenInBrowser will be hydrated with it's value if a user runs the read cmd
-	// with the flag --open (or -o)
-	OpenInBrowser bool
-
-	// APIClient is the exported APIClient, it is set during init
+	// APIClient is the exported APIClient, it is set during init and used within commands.
 	APIClient *api.Client
+
+	// Command flag variables
+	email         string // -e, --email
+	referenceName string // -r, --reference_name
+	password      string // -p, --password
+	openInBrowser bool   // -o, --open
 )
 
 func init() {
@@ -67,12 +57,13 @@ func init() {
 	rootCmd.AddCommand(readCmd)
 	rootCmd.AddCommand(versionCmd)
 
-	// Flags
-	createCmd.Flags().StringVarP(&Email, "email", "e", "", usageEmail)
-	createCmd.Flags().StringVarP(&ReferenceName, "reference_name", "r", "", usageRefName)
-	createCmd.Flags().StringVarP(&Password, "password", "p", "", usagePassword)
+	// Create command flags
+	createCmd.Flags().StringVarP(&email, "email", "e", "", usageEmail)
+	createCmd.Flags().StringVarP(&referenceName, "reference_name", "r", "", usageRefName)
+	createCmd.Flags().StringVarP(&password, "password", "p", "", usagePassword)
 
-	readCmd.Flags().BoolVarP(&OpenInBrowser, "open", "o", false, usageOpenInBrowser)
+	// Read command flags
+	readCmd.Flags().BoolVarP(&openInBrowser, "open", "o", false, usageOpenInBrowser)
 }
 
 var rootCmd = &cobra.Command{

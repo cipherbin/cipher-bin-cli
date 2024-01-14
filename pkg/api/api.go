@@ -13,20 +13,20 @@ import (
 
 // Client makes network API calls to cipherb.in
 type Client struct {
-	CipherBinAPIClient
+	cipherBinAPIClient
 	APIBaseURL     string
 	BrowserBaseURL string
 }
 
-// CipherBinAPIClient is used with http.Client and MockClient to allow mocking of services
-type CipherBinAPIClient interface {
+// cipherBinAPIClient is used with http.Client and MockClient to allow mocking of services
+type cipherBinAPIClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
 // NewClient is a constructor for the ApiClient and satisfies the CipherBinAPIClient interface
-func NewClient(browserBaseURL, apiBaseURL string, client CipherBinAPIClient) (*Client, error) {
+func NewClient(browserBaseURL, apiBaseURL string, client cipherBinAPIClient) (*Client, error) {
 	return &Client{
-		CipherBinAPIClient: client,
+		cipherBinAPIClient: client,
 		BrowserBaseURL:     browserBaseURL,
 		APIBaseURL:         apiBaseURL,
 	}, nil

@@ -46,7 +46,11 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	uuidv4 := uuid.NewV4().String()
 
 	// Generate a random 32 byte string
-	key := randstring.New(32)
+	key, err := randstring.New(32)
+	if err != nil {
+		colors.Println(err.Error(), colors.Red)
+		os.Exit(1)
+	}
 
 	// Encrypt the message using AES-256
 	encryptedMsg, err := aes256.Encrypt(msgBytes, key)
@@ -61,9 +65,9 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	msg := db.Message{
 		UUID:          uuidv4,
 		Message:       encryptedMsg,
-		Email:         Email,
-		ReferenceName: ReferenceName,
-		Password:      Password,
+		Email:         email,
+		ReferenceName: referenceName,
+		Password:      password,
 	}
 
 	// Post message to the cipherbin api

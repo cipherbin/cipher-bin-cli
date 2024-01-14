@@ -1,19 +1,21 @@
 package randstring
 
 import (
-	"math/rand"
-	"time"
+	"crypto/rand"
+	"math/big"
 )
 
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-var seed *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
-
-// New creates a random string with caller supplied length
-func New(length int) string {
+// New creates a cryptographically secure random string with the specified length.
+func New(length int) (string, error) {
 	b := make([]byte, length)
 	for i := range b {
-		b[i] = charset[seed.Intn(len(charset))]
+		charIndex, err := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
+		if err != nil {
+			return "", err
+		}
+		b[i] = charset[charIndex.Int64()]
 	}
-	return string(b)
+	return string(b), nil
 }
