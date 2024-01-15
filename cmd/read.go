@@ -46,7 +46,7 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 
 	// If we've gotten here, the open in browser flag was not provided, so we
 	// replace the browser url with the api url to fetch the message.
-	url = strings.Replace(url, APIClient.BrowserBaseURL, APIClient.APIBaseURL, -1)
+	url = strings.Replace(url, apiClient.BrowserBaseURL, apiClient.APIBaseURL, -1)
 	urlParts := strings.Split(url, ";")
 	if len(urlParts) != 2 {
 		colors.Println("Sorry, that seems to be an invalid cipherbin link", colors.Red)
@@ -54,7 +54,7 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 	apiURL := urlParts[0] // uuid only
 
 	// Get the encrypted message with the APIClient
-	encryptedMsg, err := APIClient.GetMessage(apiURL)
+	encryptedMsg, err := apiClient.GetMessage(apiURL)
 	if err != nil {
 		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)
@@ -83,5 +83,5 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 
 // validURL takes a string url and checks whether it looks like a valid cipherb.in link
 func validURL(url string) bool {
-	return strings.HasPrefix(url, fmt.Sprintf("%s/msg?bin=", APIClient.BrowserBaseURL))
+	return strings.HasPrefix(url, fmt.Sprintf("%s/msg?bin=", apiClient.BrowserBaseURL))
 }

@@ -13,23 +13,18 @@ import (
 
 // Client makes network API calls to cipherb.in
 type Client struct {
-	cipherBinAPIClient
+	httpClient     *http.Client
 	APIBaseURL     string
 	BrowserBaseURL string
 }
 
-// cipherBinAPIClient is used with http.Client and MockClient to allow mocking of services
-type cipherBinAPIClient interface {
-	Do(req *http.Request) (*http.Response, error)
-}
-
-// NewClient is a constructor for the ApiClient and satisfies the CipherBinAPIClient interface
-func NewClient(browserBaseURL, apiBaseURL string, client cipherBinAPIClient) (*Client, error) {
+// NewClient TODO
+func NewClient(browserBaseURL, apiBaseURL string, client *http.Client) *Client {
 	return &Client{
-		cipherBinAPIClient: client,
-		BrowserBaseURL:     browserBaseURL,
-		APIBaseURL:         apiBaseURL,
-	}, nil
+		httpClient:     client,
+		BrowserBaseURL: browserBaseURL,
+		APIBaseURL:     apiBaseURL,
+	}
 }
 
 // PostMessage takes a msg of type *db.Message (this is what the server uses and will expect)
@@ -47,7 +42,7 @@ func (c *Client) PostMessage(msg *db.Message) error {
 	defer req.Body.Close()
 	req.Header.Set("Content-Type", "application/json")
 
-	res, err := c.Do(req)
+	res, err := c.httpClient.Do(req)
 	if err != nil {
 		return err
 	}
@@ -66,7 +61,7 @@ func (c *Client) GetMessage(url string) (*app.MessageResponse, error) {
 		return nil, err
 	}
 
-	res, err := c.Do(req)
+	res, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

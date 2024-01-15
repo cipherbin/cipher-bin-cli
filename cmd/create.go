@@ -60,7 +60,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	}
 
 	// Create one time use URL with format {host}?bin={uuidv4};{ecryption_key}
-	oneTimeURL := fmt.Sprintf("%s/msg?bin=%s;%s", APIClient.BrowserBaseURL, uuidv4, key)
+	oneTimeURL := fmt.Sprintf("%s/msg?bin=%s;%s", apiClient.BrowserBaseURL, uuidv4, key)
 
 	msg := db.Message{
 		UUID:          uuidv4,
@@ -71,7 +71,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	}
 
 	// Post message to the cipherbin api
-	err = APIClient.PostMessage(&msg)
+	err = apiClient.PostMessage(&msg)
 	if err != nil {
 		colors.Println(err.Error(), colors.Red)
 		os.Exit(1)

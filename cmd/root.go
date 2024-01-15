@@ -22,8 +22,8 @@ const (
 )
 
 var (
-	// APIClient is the exported APIClient, it is set during init and used within commands.
-	APIClient *api.Client
+	// apiClient is shared, it is set during init and used within commands.
+	apiClient *api.Client
 
 	// Command flag variables
 	email         string // -e, --email
@@ -33,24 +33,16 @@ var (
 )
 
 func init() {
-	client := http.Client{Timeout: 15 * time.Second}
 	browserBaseURL := "https://cipherb.in"
 	apiBaseURL := "https://api.cipherb.in"
-
 	if os.Getenv("CIPHER_BIN_ENV") == "development" {
 		browserBaseURL = "http://localhost:3000"
 		apiBaseURL = "http://localhost:4000"
 	}
 
-	api, err := api.NewClient(browserBaseURL, apiBaseURL, &client)
-	if err != nil {
-		fmt.Printf("Error creating API client. Err: %v", err)
-		os.Exit(1)
-		return
-	}
-
-	// Set the globally exported APIClient variable to the new client we created
-	APIClient = api
+	// Set up the shared cipherbin api client
+	client := http.Client{Timeout: 15 * time.Second}
+	apiClient = api.NewClient(browserBaseURL, apiBaseURL, &client)
 
 	// Add all cipherbin commands to the base command
 	rootCmd.AddCommand(createCmd)
