@@ -82,7 +82,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) {
 	warning := "\nWarning! This message will self destruct after reading it."
 
 	// Copy the one time url to the user's clipboard. Using nice little package here
-	// that does the work around ensuring this works on OSX, Windows 7, Linux/Unix
+	// that does the work around ensuring this works on OSX, Windows, Linux/Unix
 	if err := clipboard.WriteAll(oneTimeURL); err != nil {
 		colors.Println(warning, colors.Yellow)
 		colors.Println(oneTimeURL+"\n", colors.Green)

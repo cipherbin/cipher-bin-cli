@@ -28,7 +28,7 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 	url := args[0]
 
 	// Exit early if url is not valid
-	if !validURL(url) {
+	if !validURL(url, apiClient.BrowserBaseURL) {
 		colors.Println("Sorry, this message has either already been viewed and destroyed or it never existed at all", colors.Red)
 		os.Exit(1)
 		return
@@ -72,7 +72,7 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 	// Decrypt the message returned from APIClient.GetMessage
 	plainTextMsg, err := aes256.Decrypt(encryptedMsg.Message, key)
 	if err != nil {
-		fmt.Println(err)
+		colors.Println("Sorry, that seems to be an invalid cipherbin link", colors.Red)
 		os.Exit(1)
 	}
 
@@ -82,6 +82,6 @@ func runReadCmd(cmd *cobra.Command, args []string) {
 }
 
 // validURL takes a string url and checks whether it looks like a valid cipherb.in link
-func validURL(url string) bool {
-	return strings.HasPrefix(url, fmt.Sprintf("%s/msg?bin=", apiClient.BrowserBaseURL))
+func validURL(url, apiBaseURL string) bool {
+	return strings.HasPrefix(url, fmt.Sprintf("%s/msg?bin=", apiBaseURL))
 }
